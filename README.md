@@ -28,7 +28,7 @@ To run the project locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/arunchauhan707/Ad-Free-Youtube.git
+   git clone https://github.com/tarunchauhan707/Ad-Free-Youtube.git
    ```
    
 2.Navigate to the project directory:
