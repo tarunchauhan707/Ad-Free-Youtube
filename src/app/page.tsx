@@ -74,9 +74,7 @@ export default function Home() {
           <Spacer y={1} />
           <Button
             type="submit"
-            shadow
             color="primary"
-            auto
             style={{
               padding: "12px 24px",
               fontSize: "18px",
