@@ -1,101 +1,110 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import {Button, ButtonGroup} from "@nextui-org/button";
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link,Spacer} from "@nextui-org/react";
+import { motion } from 'framer-motion'; // Importing motion for animations
+import Player from '../components/Player';
+import { extractVideoId } from '../utils/extractVideoId';
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [url, setUrl] = useState<string>('');
+  const [videoId, setVideoId] = useState<string | null>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const id = extractVideoId(url);
+    if (id) {
+      setVideoId(id);
+    } else {
+      alert('Invalid YouTube URL');
+    }
+  };
+
+  return (
+    <>
+      {/* Navbar */}
+
+      {/* Main Content */}
+      <motion.div
+        style={{
+          textAlign: 'center',
+          marginTop: '50px',
+          padding: '20px',
+          backgroundColor: '#f9f9f9',
+          borderRadius: '8px',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          maxWidth: '600px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.h1
+          style={{
+            fontSize: '36px',
+            marginBottom: '20px',
+            color: '#000000',
+            fontFamily: 'Arial, sans-serif',
+          }}
+          initial={{ x: -100 }}
+          animate={{ x: 0 }}
+          transition={{ type: 'spring', stiffness: 80}}
+        >
+          Ad-Free YouTube Viewer
+        </motion.h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Paste your YouTube video link here"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            style={{
+              marginBottom: '20px',
+              padding: '10px',
+              fontSize: '16px',
+              borderRadius: '8px',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+              width: '100%',
+            }}
+          />
+          <Spacer y={1} />
+          <Button
+            type="submit"
+            shadow
+            color="primary"
+            auto
+            style={{
+              padding: "12px 24px",
+              fontSize: "18px",
+              borderRadius: "8px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              backgroundColor: "#FF2929",  // Add a background color (blue)
+              color: "#fff",               // Set text color to white
+              border: "none",              // Remove the border
+              cursor: "pointer",           // Change cursor to pointer
+              transition: "background-color 0.3s ease", // Smooth transition on hover
+            }}
+            
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Watch
+          </Button>
+        </form>
+        <Spacer y={2} />
+        {videoId && (
+          <motion.div
+            style={{ marginTop: '30px' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <Player videoId={videoId} />
+          </motion.div>
+        )}
+      </motion.div>
+    </>
   );
 }
