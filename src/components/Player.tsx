@@ -24,7 +24,7 @@ const Player: React.FC<PlayerProps> = ({ videoId }) => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, type: 'spring', stiffness: 80 }}
     >
-      <Card css={{ margin: '0 auto', maxWidth: '700px', padding: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
+      <Card style={{ margin: '0 auto', maxWidth: '700px', padding: '20px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
